@@ -5,14 +5,15 @@ const h1 = document.querySelector("h1");
 const resetButton = document.querySelector("#reset");
 const modeButtons = document.querySelectorAll(".mode");
 const buttons = document.querySelectorAll("button");
-const href = document.querySelector("a");
+const recordDisplay = document.querySelector("#absolute")
 
 let numOfColors = 6;
 let colors = [];
 let winningColor;
 let buttonsColor;
 
-let streak = 0;
+let streak = true;
+let score = 0;
 
 const init = () => {
    reset(numOfColors);
@@ -20,21 +21,34 @@ const init = () => {
    setUpButtons();
 }
 
+const postScore = async () => {
+   // axios({
+   //    method: 'post',
+   //    url: '/game',
+   //    headers: { 'Content-Type': 'application/json' },
+   //    data: {
+   //       user: 'bar',
+   //       score: '5',
+   //    }
+   // });
+}
 
 const setUpSquares = () => {
    for (let square of squares) {
       square.style.backgroundColor = colors[square];
       square.addEventListener("click", function () {
          if (this.style.backgroundColor === winningColor) {
-            streak += 1;
+            streak ? score += 1 : null;
             changeSguaresColor(winningColor);
             buttonsColor = winningColor;
             buttonsColorWin();
             messageDisplay.textContent = "Correct!";
             resetButton.textContent = "PLAY AGAIN?"
          } else {
-            href.style.display = "block";
-            href.href = `/ranking/new?q=${streak}`;
+
+            score > parseInt(recordDisplay.textContent) ? postScore() : score = 0;
+            streak = false;
+
             this.style.backgroundColor = "#232323";
             messageDisplay.textContent = "Try Again!";
          }
@@ -69,7 +83,7 @@ const setUpButtons = () => {
 }
 
 const reset = (numOfColors) => {
-   //    streak = 0;
+   streak = true;
    colors = generateColors(numOfColors);
    winningColor = pickWinningColor();
    buttonsColor = "steelblue";

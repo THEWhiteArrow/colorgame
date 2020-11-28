@@ -3,7 +3,9 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const Score = require('./models/ranking')
+const Score = require('./models/ranking');
+
+
 
 mongoose.connect('mongodb://localhost:27017/colorGame', { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => {
@@ -22,39 +24,22 @@ app.use(methodOverride('_method'));
 
 
 // ROUTES
-app.get('/', (req, res) => {
-   res.render('index.ejs')
+app.get('/game', async (req, res) => {
+   const record = await Score.findOne()
+   console.log(record.score)
+   res.render('index.ejs', { record });
 })
 
-// SHOW SCORES
-app.get('/ranking', async (req, res) => {
-   try {
-      const ranking = await Score.find({})
-      res.render('show', { ranking })
-   } catch {
-      res.render('error');
-   }
-})
-// ADD NEW SCORE
-let score;
-app.get('/ranking/new', (req, res) => {
-   score = req.query.q;
-   res.render('new', { score })
+// SUBMITING NEW PRODUCT
+app.post('/game', async (req, res) => {
+
+   // res.redirect(`/index.ejs`);
 })
 
-// SUBMIT NEW SCORE
-app.post('/ranking', async (req, res) => {
-   try {
-      const newScore = new Score(req.body);
-      newScore.score = score;
-      await newScore.save()
-      res.redirect('/ranking');
-   } catch {
-      res.render('error');
-   }
+// ERROR
+app.get('*', (req, res) => {
+   res.render('error');
 })
-
-
 
 // LISTENING
 app.listen(3000, () => {

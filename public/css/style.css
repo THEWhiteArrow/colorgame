@@ -54,10 +54,6 @@ main{
   z-index: 5;
 }
 
-a{
-   display: none;
-}
-
 /* id's */
 #colorDisplay{
   font-size: 2em;
@@ -74,7 +70,11 @@ a{
 #message{
     align-self: center;
 }
-
+#absolute{
+   position: absolute;
+   top:10px;
+   left:10px;
+}
 
 /* classes */
 
