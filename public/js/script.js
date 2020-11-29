@@ -14,6 +14,7 @@ let buttonsColor;
 
 let streak = true;
 let score = 0;
+let user = 'anonymous';
 
 const init = () => {
    reset(numOfColors);
@@ -21,17 +22,18 @@ const init = () => {
    setUpButtons();
 }
 
-const postScore = async () => {
-   // axios({
-   //    method: 'post',
-   //    url: '/game',
-   //    headers: { 'Content-Type': 'application/json' },
-   //    data: {
-   //       user: 'bar',
-   //       score: '5',
-   //    }
-   // });
+const sendScore = () => {
+   fetch('/', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         user: user, score: score
+      })
+   });
 }
+
 
 const setUpSquares = () => {
    for (let square of squares) {
@@ -46,7 +48,7 @@ const setUpSquares = () => {
             resetButton.textContent = "PLAY AGAIN?"
          } else {
 
-            score > parseInt(recordDisplay.textContent) ? postScore() : score = 0;
+            score > parseInt(recordDisplay.textContent) ? sendScore() : score = 0;
             streak = false;
 
             this.style.backgroundColor = "#232323";
