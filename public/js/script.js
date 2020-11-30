@@ -5,33 +5,65 @@ const h1 = document.querySelector("h1");
 const resetButton = document.querySelector("#reset");
 const modeButtons = document.querySelectorAll(".mode");
 const buttons = document.querySelectorAll("button");
-const recordDisplay = document.querySelector("#absolute")
+
+const userRecordDisplay = document.querySelector("#recordUser");
+const recordDisplay = document.querySelector("#recordScore");
 
 let numOfColors = 6;
 let colors = [];
 let winningColor;
 let buttonsColor;
 
-let streak = true;
+let streak;
 let score = 0;
 let user = 'anonymous';
+
+let interval;
 
 const init = () => {
    reset(numOfColors);
    setUpSquares();
    setUpButtons();
+   fetchData();
 }
 
-const sendScore = () => {
-   fetch('/', {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-         user: user, score: score
+const fetchData = () => {
+   interval = setInterval(async () => {
+      try {
+         const res = await fetch('http://localhost:3000/?q=fetch')
+         const data = await res.json();
+         console.log(data)
+         if (data.score > parseInt(recordDisplay.innerText)) {
+            recordDisplay.innerText = data.score;
+            userRecordDisplay.innerText = data.user;
+         }
+      } catch (e) {
+         console.log('ERROR - CANNOT FETCH A RECORD!')
+         clearInterval(interval);
+         console.log('LOOKING FOR UPDATES STOPPED!')
+      }
+   }, 10000)
+
+}
+
+const sendScore = async () => {
+   try {
+      const res = await fetch('/ranking', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            user: user,
+            score: score
+         })
       })
-   });
+      console.log('SUCCES');
+   } catch (e) {
+      console.log('ERROR', e)
+   }
+
+   window.location.replace('/ranking')
 }
 
 
@@ -48,7 +80,8 @@ const setUpSquares = () => {
             resetButton.textContent = "PLAY AGAIN?"
          } else {
 
-            score > parseInt(recordDisplay.textContent) ? sendScore() : score = 0;
+            score > parseInt(recordDisplay.innerText) ? sendScore() : null;
+            score = 0;
             streak = false;
 
             this.style.backgroundColor = "#232323";

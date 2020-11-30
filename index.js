@@ -13,30 +13,37 @@ mongoose.connect('mongodb://localhost:27017/colorGame', { useNewUrlParser: true,
    });
 
 //##########################        MIDDLEWARE
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 //##########################        ROUTES
-// GAME
-app.get('/', async(req, res) => {
+
+// GAME OR FETCH DATA
+app.get('/', async (req, res) => {
    const record = await findRecord();
-   console.log(record)
-   res.render('index',{record})
+   if (req.query.q === 'fetch') {
+      res.send(record)
+   } else {
+      res.render('index', { record })
+   }
 })
 // SHOW RANKINGS
-app.get('/ranking', async(req, res) => {
+app.get('/ranking', async (req, res) => {
    const scores = await Score.find({});
-   const l =getLength(scores);
-   res.render('show',{scores,l})
+   const l = getLength(scores);
+   res.render('show', { scores, l })
 })
+
 // SUBMIT NEW RECORD
-app.post('/', async (req, res) => {
+app.post('/ranking', async (req, res) => {
    console.log(req.body)
    const newRecord = new Score(req.body);
    await newRecord.save();
-   res.redirect('/');
+   res.redirect('/ranking');
 })
 
 
@@ -45,17 +52,17 @@ app.listen(3000, () => {
 })
 
 //##########################        FUNCTIONS
-const findRecord = async()=> {
+const findRecord = async () => {
    const scores = await Score.find({})
-   return (scores.reduce((prev, current)=>{
-      return (prev.score < current.score)? current : prev;
-      }))
+   return (scores.reduce((prev, current) => {
+      return (prev.score < current.score) ? current : prev;
+   }))
 }
 
 const getLength = (obj) => {
    let l = 0;
-   for(let i in obj){
-      l+=1
+   for (let i in obj) {
+      l += 1
    }
    return l;
 }
