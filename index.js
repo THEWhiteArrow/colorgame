@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const methodOverride = require('method-override');
 const Score = require('./models/ranking');
 
 mongoose.connect('mongodb://localhost:27017/colorGame', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -17,9 +16,7 @@ mongoose.connect('mongodb://localhost:27017/colorGame', { useNewUrlParser: true,
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
-app.use(methodOverride('_method'));
 
 //##########################        ROUTES
 // GAME
