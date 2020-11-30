@@ -1,10 +1,13 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const Score = require('./models/ranking');
 
-mongoose.connect('mongodb://localhost:27017/colorGame', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/colorGame', {
+   useNewUrlParser: true,
+   useCreateIndex: true,
+   useUnifiedTopology: true
+})
    .then(() => {
       console.log('MONGO CONNECTION OPEN')
    })
@@ -14,8 +17,10 @@ mongoose.connect('mongodb://localhost:27017/colorGame', { useNewUrlParser: true,
 
 //##########################        MIDDLEWARE
 
+const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -35,7 +40,7 @@ app.get('/', async (req, res) => {
 app.get('/ranking', async (req, res) => {
    const scores = await Score.find({});
    const l = getLength(scores);
-   res.render('show', { scores, l })
+   res.render('ranking', { scores, l })
 })
 
 // SUBMIT NEW RECORD
@@ -45,6 +50,13 @@ app.post('/ranking', async (req, res) => {
    await newRecord.save();
    res.redirect('/ranking');
 })
+
+// INVALID ROUTE / ERROR
+app.get('*', (req, res) => {
+   res.render('error');
+})
+
+
 
 
 app.listen(3000, () => {

@@ -30,7 +30,7 @@ const init = () => {
 const fetchData = () => {
    interval = setInterval(async () => {
       try {
-         const res = await fetch('http://localhost:3000/?q=fetch')
+         const res = await fetch('/?q=fetch')
          const data = await res.json();
          console.log(data)
          if (data.score > parseInt(recordDisplay.innerText)) {
