@@ -70,6 +70,7 @@ const sendScore = async () => {
 const setUpSquares = () => {
    for (let square of squares) {
       square.style.backgroundColor = colors[square];
+
       square.addEventListener("click", function () {
          if (this.style.backgroundColor === winningColor) {
             streak ? score += 1 : null;
@@ -84,7 +85,7 @@ const setUpSquares = () => {
             score = 0;
             streak = false;
 
-            this.style.backgroundColor = "#232323";
+            this.style.opacity = 0;
             messageDisplay.textContent = "Try Again!";
          }
       })
@@ -126,6 +127,7 @@ const reset = (numOfColors) => {
    colorDisplay.textContent = winningColor;
    for (let i = 0; i < squares.length; i++) {
       squares[i].style.backgroundColor = colors[i];
+      squares[i].style.opacity = 1;
       squares[i].classList.remove("animation");
    }
    h1.style.backgroundColor = "steelblue";
@@ -162,6 +164,7 @@ const changeSguaresColor = (color) => {
    for (let i = 0; i < colors.length; i++) {
       h1.style.backgroundColor = color;
       squares[i].style.backgroundColor = color;
+      squares[i].style.opacity = 1;
       squares[i].classList.add("animation");
    }
 }

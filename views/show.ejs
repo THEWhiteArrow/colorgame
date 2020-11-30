@@ -14,13 +14,15 @@
       <% let n=0 %>
       <% for(let score of scores) { %>
       <li>
-         <div class="place">Place: <span><%= l-n %></span></div>
-         <div> <%=score.user  %> - <%= score.score %></div>
+         <div class="place">Place <span><%= l-n %></span> :</div>
+         <div class="data"> <%=score.user  %> - <%= score.score %></div>
       </li>
       <% n+=1 %>
       <% } %>
    </ul>
-   <a href="/">Return to the game!</a>
+   <div class="absolute">
+      <a href="/">Return to the game!</a>
+   </div>
 </body>
 
 </html>
