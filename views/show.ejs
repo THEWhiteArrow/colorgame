@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Ranking</title>
+   <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   <h1>Global Ranking</h1>
+   <ul id="ranking">
+      <% let n=0 %> 
+      <% for(let score of scores) { %> 
+         <li>
+            <div class="place">Place: <%= l-n %></div>
+            <div> <%=score.user  %> - <%= score.score %></div>
+         </li>
+         <% n+=1 %> 
+      <% } %> 
+   </ul>
+   <a href="/">Return to the game!</a>
+</body>
+</html>

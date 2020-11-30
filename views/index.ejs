@@ -7,9 +7,6 @@
    <title>Color Game</title>
    <link href="/css/style.css" rel="stylesheet" type="text/css">
    <script src="/js/axios.min.js"></script>
-   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"
-      integrity="sha512-bYkaBWaFtfPIMYt9+CX/4DWgfrjcHinjerNYxQmQx1VM76eUsPPKZa5zWV8KksVkBF/DaHSADCwil2J5Uq2ctA=="
-      crossorigin="anonymous"></script> -->
 </head>
 
 <body>
@@ -42,13 +39,13 @@
 
    </main>
    <div id="absolute">
-      1 machine
+      <div>
+         <b><%= record.user %></b> 
+         <%= record.score %> 
+      </div>
+      <a href="/ranking">See the ranking!</a>
    </div>
-   <form action="/" method="post">
-      <input type="text" name="user">
-      <input type="number" name="score">
-      <button>Submit</button>
-   </form>
+   
    <script src="/js/script.js" type="text/javascript"></script>
 
 </body>
