@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 //##########################        ROUTES
 
 // GAME OR FETCH DATA
-app.get('/', async (req, res) => {
+app.get('/game', async (req, res) => {
    const record = await findRecord();
    if (req.query.q === 'fetch') {
       res.send(record)
