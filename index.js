@@ -3,6 +3,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Score = require('./models/ranking');
 
+const PORT = process.env.PORT || 3000;
+
 mongoose.connect('mongodb://localhost:27017/colorGame', {
    useNewUrlParser: true,
    useCreateIndex: true,
@@ -59,7 +61,7 @@ app.get('*', (req, res) => {
 
 
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
    console.log('APP IS LISTENING ON PORT 3000')
 })
 
