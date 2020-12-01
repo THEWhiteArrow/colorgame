@@ -5,13 +5,13 @@ html{
 }
 
 body{
+   height:100%;   
    position: relative;
-   height:100%;
    background-color: #232323;
    margin: 0;
    font-family:Verdana, Geneva, Tahoma, sans-serif;     
    background-image: url('../assets/meteor.svg');
-   background-size: auto auto;
+   background-size: cover;
 }
 
 h1{
@@ -60,8 +60,31 @@ main{
 
 a{
    margin:0;
+   color: white;
+   text-transform: uppercase;
 }
-
+a:link {
+   color:white;
+   background-color:var(--secondColor);
+ }
+ 
+ /* visited link */
+ a:visited {
+   color:white;
+   background-color:var(--secondColor);
+ }
+ 
+ /* mouse over link */
+ a:hover {
+   color:white;
+   background-color:var(--thirdColor);
+ }
+ 
+ /* selected link */
+ a:active {
+   color:white;
+   background-color:var(--thirdColor);
+ }
 /* groups */
 button:focus:not(:focus-visible){
    outline: none;
@@ -143,11 +166,34 @@ input:focus:not(:focus-visible){
    top:0;
    left:0;
    
-   padding:.5rem .7rem 1rem .7rem;
+   padding:.8rem;
    color:white;
-   max-width: 7rem;
    
    /* border-radius: 0% 0% 80% 80% / 100% 50% 100% 100%; */
+}
+.absolute .score{
+   display: flex;
+   flex-direction: column;
+   margin-top:.5rem;
+}
+
+.link a{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: flex-start;
+
+   width:7rem;
+}
+
+.link a svg{
+   margin:auto .7rem .07rem .6rem;
+   transform: scale(1);
+   transition: margin .4s ease-out;
+   
+}
+.link svg:hover{
+   animation: hoverLink .4s linear both;
 }
 
 .place,.data{
@@ -193,6 +239,10 @@ input:focus:not(:focus-visible){
     color: white;
 }
 
+.animation{
+  animation: shaking 1s linear  normal both;
+}
+
 @media (max-width:765px) {
   #colorDisplay{
     font-size: 1.7em;
@@ -223,40 +273,7 @@ input:focus:not(:focus-visible){
   }
 }
 
-.animation{
-  animation: shaking 1s linear 1 normal both;
-}
-/* 
-.hide{
-  animation: hidding 1s linear 1 normal both;
-}
 
-.show{
-  animation: showing 1s linear 1 normal both;
-}
-
-@keyframes showing{
-  0%{
-    display: block !important;
-    opacity: 0;
-  }
-  100%{
-    opacity: 1;
-  }
-}
-
-@keyframes hidding{
-    0%{
-      opacity: 1;
-    }
-    99%{
-      opacity: 0.001;
-    }
-    100%{
-      opacity: 0;
-      display: none !important;
-    }
-} */
 @keyframes fadeIn {
    from {
       opacity: 0;
@@ -288,5 +305,29 @@ input:focus:not(:focus-visible){
   100%{
       transform:rotate(0deg) ;
   }
+}
+
+@keyframes hoverLink{
+   0%{
+      transform: translateY(0) rotate(0deg);
+   }
+   40%{
+      transform: translateY(-2px)  rotate(144deg);
+   }
+   45%{
+      transform: translateY(-3px) rotate(162deg);
+   }
+   50%{
+      transform: translateY(-4px) rotate(180deg);
+   }
+   55%{
+      transform: translateY(-3px) rotate(198deg);
+   }
+   60%{
+      transform: translateY(-2px) rotate(216deg);
+   }
+   100%{
+      transform: translateY(0) rotate(360deg);
+   }
 }
 

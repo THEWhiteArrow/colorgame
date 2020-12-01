@@ -63,7 +63,7 @@ const sendScore = async () => {
             'Content-Type': 'application/json'
          },
          body: JSON.stringify({
-            user: user,
+            user: user || `player${Math.floor(Math.random() * 1000) + 1}_`,
             score: score
          })
       })
