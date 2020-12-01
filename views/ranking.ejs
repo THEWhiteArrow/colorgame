@@ -9,7 +9,11 @@
 </head>
 
 <body>
-   <h1>Global Ranking</h1>
+   <h1 style="display: inline-flex; flex-direction: column;width:100%">
+      <span>Global Ranking</span>
+      <span style="margin-top:.5rem;font-size: .8em;">Mode : Hard</span>
+   </h1>
+
    <ul id="ranking">
       <% let n=0 %>
       <% for(let score of scores) { %>
@@ -21,7 +25,7 @@
       <% } %>
    </ul>
    <div class="absolute">
-      <a href="/">Return to the game!</a>
+      <a href="/">Back To Game</a>
    </div>
 </body>
 

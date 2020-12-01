@@ -101,7 +101,7 @@ const setUpSquares = async () => {
 
       square.addEventListener("click", function () {
          if (this.style.backgroundColor === winningColor) {
-            streak ? score += 1 : null;
+            streak && numOfColors === 6 ? score += 1 : null;
             changeSguaresColor(winningColor);
             buttonsColor = winningColor;
             buttonsColorWin();
