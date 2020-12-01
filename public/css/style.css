@@ -11,7 +11,7 @@ body{
    margin: 0;
    font-family:Verdana, Geneva, Tahoma, sans-serif;     
    background-image: url('../assets/meteor.svg');
-   background-size: cover;
+   background-size: auto;
 }
 
 h1{
@@ -38,6 +38,7 @@ button{
     background:  none;
     text-transform: uppercase;
     height: 100%;
+    padding: .2rem;
     font-weight: 700;
     color: rgb(70, 130, 180);
     letter-spacing: 1px;
@@ -50,6 +51,7 @@ button{
 button:hover{
     background-color: steelblue;
     color: white;
+    cursor: pointer;
 }
 
 main{
@@ -61,8 +63,10 @@ main{
 a{
    margin:0;
    color: white;
+   text-decoration: none;
    text-transform: uppercase;
 }
+
 a:link {
    color:white;
    background-color:var(--secondColor);
@@ -117,7 +121,7 @@ input:focus:not(:focus-visible){
 
 #ranking{
    display:flex; 
-   flex-direction: column-reverse;
+   flex-direction: column;
    align-items: center;
    color:white;
    padding:0;
@@ -157,14 +161,14 @@ input:focus:not(:focus-visible){
 .content{
    transition:all 1s ease-in-out;
 }
-
+.left{left:1%}
+.right{right:1%}
 .absolute{
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;
    position: absolute;
-   top:0;
-   left:0;
+   top:1%;
    
    padding:.8rem;
    color:white;
@@ -178,22 +182,39 @@ input:focus:not(:focus-visible){
 }
 
 .link a{
+   font-size: 1.5em;
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: flex-start;
 
-   width:7rem;
 }
-
-.link a svg{
-   margin:auto .7rem .07rem .6rem;
-   transform: scale(1);
+.link a span{
+   font-weight: 600;
+}
+.r{
+   background-image: url('../assets/arrow-right.svg');
+}
+.l{
+   background-image: url('../assets/arrow-left.svg');
+}
+.link a .svg{
+   background-size: contain;
+   height: 1.05em;
+   width:1.05em;
+   margin:auto .7rem;
    transition: margin .4s ease-out;
    
 }
-.link svg:hover{
-   animation: hoverLink .4s linear both;
+.link .svg.l:hover{
+   animation: hoverLink .4s linear reverse both;
+}
+.link .svg.r:hover{
+   animation: hoverLink .4s linear normal both;
+}
+
+.save{
+   margin-top: 5px;
 }
 
 .place,.data{
@@ -229,6 +250,7 @@ input:focus:not(:focus-visible){
     margin-bottom:calc(10%/4);
     border-radius: 15%;
     display: block;
+    cursor: pointer;
     transition: all 0.6s;
     -webkit-transition:  all 0.6s;
     -moz-transition:  all 0.6s; 

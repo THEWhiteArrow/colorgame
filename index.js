@@ -9,13 +9,13 @@ mongoose.connect('mongodb://localhost:27017/colorGame', {
    useNewUrlParser: true,
    useCreateIndex: true,
    useUnifiedTopology: true
-})
-   .then(() => {
-      console.log('MONGO CONNECTION OPEN')
-   })
-   .catch(err => {
-      console.log('OH NO MONGO ERROR !', err)
-   });
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+   console.log('Database connected');
+});
 
 //##########################        MIDDLEWARE
 
@@ -30,8 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 //##########################        ROUTES
 
 // GAME OR FETCH DATA
-app.get('/game', async (req, res) => {
+app.get('/', async (req, res) => {
    const record = await findRecord();
+
    if (req.query.q === 'fetch') {
       res.send(record)
    } else {
@@ -41,8 +42,8 @@ app.get('/game', async (req, res) => {
 // SHOW RANKINGS
 app.get('/ranking', async (req, res) => {
    const scores = await Score.find({});
-   const l = getLength(scores);
-   res.render('ranking', { scores, l })
+   const sortedScores = sortingObj(scores);
+   res.render('ranking', { sortedScores });
 })
 
 // SUBMIT NEW RECORD
@@ -68,7 +69,7 @@ app.listen(PORT, () => {
 //##########################        FUNCTIONS
 const findRecord = async () => {
    const scores = await Score.find({})
-   if (Object.keys(scores).length !== 0) {
+   if (scores.length !== 0) {
       return (scores.reduce((prev, current) => {
          return (prev.score < current.score) ? current : prev;
       }))
@@ -77,10 +78,16 @@ const findRecord = async () => {
    }
 }
 
-const getLength = (obj) => {
-   let l = 0;
-   for (let i in obj) {
-      l += 1
+const sortingObj = (arr) => {
+   const l = arr.length;
+   for (let i = 0; i < l; i++) {
+      for (let j = 1; j < l - i; j++) {
+         if (arr[j].score > arr[j - 1].score) {
+            let x = arr[j];
+            arr[j] = arr[j - 1];
+            arr[j - 1] = x;
+         }
+      }
    }
-   return l;
+   return arr;
 }

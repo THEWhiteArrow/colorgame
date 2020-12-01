@@ -9,6 +9,10 @@ const rankingSchema = new mongoose.Schema({
       type: Number,
       required: true,
       min: 0
+   },
+   mode: {
+      type: String,
+      required: true
    }
 })
 
