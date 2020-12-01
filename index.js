@@ -66,9 +66,13 @@ app.listen(3000, () => {
 //##########################        FUNCTIONS
 const findRecord = async () => {
    const scores = await Score.find({})
-   return (scores.reduce((prev, current) => {
-      return (prev.score < current.score) ? current : prev;
-   }))
+   if (Object.keys(scores).length !== 0) {
+      return (scores.reduce((prev, current) => {
+         return (prev.score < current.score) ? current : prev;
+      }))
+   } else {
+      return { user: 'No data', score: 0 }
+   }
 }
 
 const getLength = (obj) => {

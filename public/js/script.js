@@ -1,3 +1,4 @@
+const content = document.querySelectorAll(".content");
 const squares = document.querySelectorAll(".square");
 const colorDisplay = document.querySelector("#colorDisplay");
 const messageDisplay = document.querySelector("#message");
@@ -5,7 +6,6 @@ const h1 = document.querySelector("h1");
 const resetButton = document.querySelector("#reset");
 const modeButtons = document.querySelectorAll(".mode");
 const buttons = document.querySelectorAll("button");
-
 const userRecordDisplay = document.querySelector("#recordUser");
 const recordDisplay = document.querySelector("#recordScore");
 
@@ -16,9 +16,10 @@ let buttonsColor;
 
 let streak;
 let score = 0;
-let user = 'anonymous';
+let user = '';
 
 let interval;
+let form;
 
 const init = () => {
    reset(numOfColors);
@@ -27,23 +28,31 @@ const init = () => {
    fetchData();
 }
 
-const fetchData = () => {
-   interval = setInterval(async () => {
-      try {
-         const res = await fetch('/?q=fetch')
-         const data = await res.json();
-         console.log(data)
-         if (data.score > parseInt(recordDisplay.innerText)) {
-            recordDisplay.innerText = data.score;
-            userRecordDisplay.innerText = data.user;
-         }
-      } catch (e) {
-         console.log('ERROR - CANNOT FETCH A RECORD!')
-         clearInterval(interval);
-         console.log('LOOKING FOR UPDATES STOPPED!')
-      }
-   }, 10000)
 
+const onFormSubmit = async function (e) {
+   e.preventDefault();
+   const inputVal = form.elements.user.value;
+   user = inputVal;
+   sendScore();
+}
+
+const appendBlur = () => {
+   for (let i of content) {
+      i.classList.add('blur');
+   }
+
+   const formula = document.createElement('div');
+   formula.classList.add('formula')
+   formula.innerHTML = [`
+         <form action="/ranking">
+            <input type="text" name="user" placeholder="Your nickname">
+               <button>Sumbit The Record!</button>
+         </form>
+   `];
+
+   document.body.append(formula);
+   form = document.querySelector('form');
+   form.addEventListener('submit', onFormSubmit);
 }
 
 const sendScore = async () => {
@@ -66,8 +75,27 @@ const sendScore = async () => {
    window.location.replace('/ranking')
 }
 
+const fetchData = () => {
+   interval = setInterval(async () => {
+      try {
+         const res = await fetch('/?q=fetch')
+         const data = await res.json();
+         console.log(data)
+         if (data.score !== parseInt(recordDisplay.innerText)) {
+            recordDisplay.innerText = data.score;
+            userRecordDisplay.innerText = data.user;
+         }
+      } catch (e) {
+         console.log('ERROR - CANNOT FETCH A RECORD!')
+         clearInterval(interval);
+         console.log('LOOKING FOR UPDATES STOPPED!')
+      }
+   }, 10000)
 
-const setUpSquares = () => {
+}
+
+
+const setUpSquares = async () => {
    for (let square of squares) {
       square.style.backgroundColor = colors[square];
 
@@ -80,9 +108,7 @@ const setUpSquares = () => {
             messageDisplay.textContent = "Correct!";
             resetButton.textContent = "PLAY AGAIN?"
          } else {
-
-            score > parseInt(recordDisplay.innerText) ? sendScore() : null;
-            score = 0;
+            score > parseInt(recordDisplay.innerText) ? appendBlur() : score = 0;
             streak = false;
 
             this.style.opacity = 0;
