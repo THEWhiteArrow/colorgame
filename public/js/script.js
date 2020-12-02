@@ -34,7 +34,7 @@ const onFormSubmit = async function (e) {
    e.preventDefault();
    const inputVal = form.elements.user.value;
    user = inputVal;
-   score > 0 ? sendScore() : null;
+   sendScore();
 }
 
 const appendBlur = () => {
@@ -150,7 +150,9 @@ const setUpButtons = () => {
       this.style.color = 'white';
       this.style.background = 'steelblue';
    });
-   saveBtn.addEventListener('click', appendBlur)
+   saveBtn.addEventListener('click', () => {
+      score > 0 ? appendBlur() : null;
+   })
 }
 
 const reset = (numOfColors) => {
