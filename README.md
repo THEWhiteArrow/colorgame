@@ -1,1 +1,1 @@
-# Remote repository Color Game
+# Remote repository Color Game / static
