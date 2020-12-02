@@ -5,7 +5,7 @@ const Score = require('./models/ranking');
 
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/colorGame', {
+mongoose.connect('mongodb+srv://whitearrow:dt61A1DT.@colorgame.c4s8l.mongodb.net/colorGame?retryWrites=true&w=majority', {
    useNewUrlParser: true,
    useCreateIndex: true,
    useUnifiedTopology: true
