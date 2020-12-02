@@ -157,9 +157,7 @@ const setUpButtons = () => {
       this.style.color = 'white';
       this.style.background = 'steelblue';
    });
-   saveBtn.addEventListener('click', () => {
-      score > 0 ? appendBlur() : null;
-   })
+   saveBtn.addEventListener('click', appendBlur);
 }
 
 const reset = (numOfColors) => {
