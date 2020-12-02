@@ -19,7 +19,7 @@
       <% for(let score of sortedScores) { %>
       <li>
          <div class="place">Place <span><%= n %></span> :</div>
-         <div class="data"> <%=score.user  %> - <%= score.score %> - <% score.mode %> </div>
+         <div class="data"> <%=score.user  %> - <%= score.score %> - <%= score.mode %> </div>
       </li>
       <% n+=1 %>
       <% } %>
