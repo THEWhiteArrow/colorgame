@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 //##########################        ROUTES
 
 // GAME OR FETCH DATA
-app.get('https://colorgame-dt.herokuapp.com/', async (req, res) => {
+app.get('/', async (req, res) => {
    const record = await findRecord();
 
    if (req.query.q === 'fetch') {
@@ -40,14 +40,14 @@ app.get('https://colorgame-dt.herokuapp.com/', async (req, res) => {
    }
 })
 // SHOW RANKINGS
-app.get('https://colorgame-dt.herokuapp.com/ranking', async (req, res) => {
+app.get('/ranking', async (req, res) => {
    const scores = await Score.find({});
    const sortedScores = sortingObj(scores);
    res.render('ranking', { sortedScores });
 })
 
 // SUBMIT NEW RECORD
-app.post('https://colorgame-dt.herokuapp.com/ranking', async (req, res) => {
+app.post('/ranking', async (req, res) => {
    console.log(req.body)
    const newRecord = new Score(req.body);
    await newRecord.save();
@@ -55,7 +55,7 @@ app.post('https://colorgame-dt.herokuapp.com/ranking', async (req, res) => {
 })
 
 // INVALID ROUTE / ERROR
-app.get('https://colorgame-dt.herokuapp.com/*', (req, res) => {
+app.get('/*', (req, res) => {
    res.render('error');
 })
 
