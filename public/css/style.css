@@ -137,6 +137,7 @@ input:focus:not(:focus-visible){
    top:30%;
    left:50%;
    right:50%;
+   z-index: 1000;
    background-color: indianred;
 
    animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
