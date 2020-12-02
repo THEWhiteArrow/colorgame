@@ -32,7 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 // GAME OR FETCH DATA
 app.get('/', async (req, res) => {
    const record = await findRecord();
-
    if (req.query.q === 'fetch') {
       res.send(record)
    } else {

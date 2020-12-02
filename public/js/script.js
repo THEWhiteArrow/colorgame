@@ -17,7 +17,6 @@ let buttonsColor;
 
 let streak;
 let score = 0;
-let user = '';
 let interval;
 let form;
 let mode = 'hard';
@@ -33,30 +32,36 @@ const init = () => {
 const onFormSubmit = async function (e) {
    e.preventDefault();
    const inputVal = form.elements.user.value;
-   user = inputVal;
-   score > 0 ? sendScore() : null;
+   const user = inputVal;
+   sendScore(user);
 }
 
 const appendBlur = () => {
-   for (let i of content) {
-      i.classList.add('blur');
+   if (score > 0) {
+      disableComponents();
+      for (let i of content) {
+         i.classList.add('blur');
+      }
+
+      const formula = document.createElement('div');
+      formula.classList.add('formula')
+      formula.innerHTML = [`
+      <form action='/ranking'>
+         <input type='text' name='user' placeholder='Your nickname'>
+         <button>Sumbit The Record!</button>
+      </form>
+      `];
+
+      document.body.append(formula);
+      form = document.querySelector('form');
+      form.addEventListener('submit', onFormSubmit);
+      isOver = true;
    }
-
-   const formula = document.createElement('div');
-   formula.classList.add('formula')
-   formula.innerHTML = [`
-         <form action='/ranking'>
-            <input type='text' name='user' placeholder='Your nickname'>
-               <button>Sumbit The Record!</button>
-         </form>
-   `];
-
-   document.body.append(formula);
-   form = document.querySelector('form');
-   form.addEventListener('submit', onFormSubmit);
 }
 
-const sendScore = async () => {
+
+
+const sendScore = async (user) => {
    try {
       const res = await fetch('/ranking', {
          method: 'POST',
@@ -73,7 +78,6 @@ const sendScore = async () => {
    } catch (e) {
       console.log('ERROR', e)
    }
-   alert(`${user}, ${score}, ${mode}`);
    window.location.replace('/ranking');
 }
 
@@ -100,10 +104,13 @@ const fetchData = () => {
 const setUpSquares = async () => {
    for (let square of squares) {
       square.style.backgroundColor = colors[square];
-
+      square.addEventListener('mouseenter', function () {
+         this.classList.add('entice');
+         setTimeout(() => { this.classList.remove('entice'); }, 200)
+      })
       square.addEventListener('click', function () {
          if (this.style.backgroundColor === winningColor) {
-            score += 1;
+            streak ? score += 1 : null;
             changeSguaresColor(winningColor);
             buttonsColor = winningColor;
             buttonsColorWin();
@@ -243,6 +250,10 @@ function mouseOut() {
       this.style.color = buttonsColor;
       this.style.backgroundColor = 'white';
    }
+}
+
+const disableComponents = () => {
+   for (let i of content) i.classList.add('disable')
 }
 //onLoad
 init();

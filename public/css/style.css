@@ -1,15 +1,19 @@
 html{
-    height:100%;
+    min-height:100%;
+    width:100%;
     margin:0;
+    padding:0;
     
 }
 
-body{
-   height:100%;   
+body{ 
+   display: flex;
+   flex-direction: column;
    position: relative;
+   min-height: 100vh;
    background-color: #232323;
    margin: 0;
-   font-family:Verdana, Geneva, Tahoma, sans-serif;     
+   font-family:Verdana, sans-serif;     
    background-image: url('../assets/meteor.svg');
    background-size: auto;
 }
@@ -119,28 +123,11 @@ input:focus:not(:focus-visible){
    font-weight: 900;
 }
 
-#ranking{
-   display:flex; 
-   flex-direction: column;
-   align-items: center;
-   color:white;
-   padding:0;
-   margin:0;
-
-   font-size:1.25rem;
-}
-#ranking li{
-   list-style-type:none;
-   text-align: center;
-   display: flex;
-   width:100%;
-   justify-content: center;
-   flex-direction: row;
-
-   margin-top:1.2rem;
-}
 
 /* classes */
+.disable {
+   pointer-events: none;
+}
 .formula{
    position: absolute;
    display: flex;
@@ -161,28 +148,31 @@ input:focus:not(:focus-visible){
 .content{
    transition:all 1s ease-in-out;
 }
-.left{left:1%}
-.right{right:1%}
+.left{left:0.5%}
+.right{right:0.5%}
+
 .absolute{
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;
    position: absolute;
-   top:1%;
-   
+   box-sizing: border-box !important;
+   top: .1rem;
+
    padding:.8rem;
    color:white;
-   
-   /* border-radius: 0% 0% 80% 80% / 100% 50% 100% 100%; */
 }
+
 .absolute .score{
    display: flex;
    flex-direction: column;
-   margin-top:.5rem;
+   margin-top:.3rem;
+   
+   padding-left:.5rem;
 }
 
 .link a{
-   font-size: 1.5em;
+   font-size: 1.5rem;
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -195,41 +185,36 @@ input:focus:not(:focus-visible){
 .r{
    background-image: url('../assets/arrow-right.svg');
 }
-.l{
-   background-image: url('../assets/arrow-left.svg');
-}
+
 .link a .svg{
    background-size: contain;
    height: 1.05em;
    width:1.05em;
-   margin:auto .7rem;
+   margin:auto 0 auto .7rem;
    transition: margin .4s ease-out;
    
 }
-.link .svg.l:hover{
-   animation: hoverLink .4s linear reverse both;
-}
+
 .link .svg.r:hover{
    animation: hoverLink .4s linear normal both;
 }
-
+.link a,.save{
+   padding:.5rem;
+   box-sizing: border-box;
+   transition: all .2s ease-in-out;
+}
+.link a:hover,.save:hover{
+   text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+}
 .save{
-   margin-top: 5px;
+
+   font-size: 1.5rem;
+   font-weight: 600;
+   color:white ;
+   cursor: pointer;
 }
 
-.place,.data{
-   display: inline-flex;
-   justify-content: center;
-   align-items: center
-}
-.data{
-   margin-left: 1rem;
-}
 
-.place span{
-   color:red;
-   margin:0 .45rem;
-}
 
 .container{
     width: 100%;
@@ -259,6 +244,10 @@ input:focus:not(:focus-visible){
 .selected{
     background-color: steelblue;
     color: white;
+}
+
+.entice{
+  animation: entice .2s ease-out;
 }
 
 .animation{
@@ -304,6 +293,21 @@ input:focus:not(:focus-visible){
    to {
       opacity: 1;
       transform: scale(1);
+   }
+}
+
+@keyframes entice {
+   0%{
+      transform: rotate(-5deg);
+   }
+   30% {
+      transform: rotate(7deg);
+   }
+   70% {
+      transform: rotate(-2deg);
+   }
+   100% {
+      transform: rotate(0deg);
    }
 }
 

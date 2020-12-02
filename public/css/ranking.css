@@ -1,0 +1,172 @@
+body{ 
+   display: flex;
+   flex-direction: column;
+   position: relative;
+   min-height: 100vh;
+   background-color: #232323;
+   margin: 0;
+   font-family:Verdana, sans-serif;     
+   background-image: url('../assets/meteor.svg');
+   background-size: auto;
+}
+
+h1{
+    color:  white;
+    background-color:steelblue; 
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 20px 0;
+    font-weight: normal;
+    line-height: 1.15;
+
+}
+
+a{
+   margin:0;
+   color: white;
+   text-decoration: none;
+   text-transform: uppercase;
+}
+
+a:link {
+   color:white;
+   background-color:var(--secondColor);
+ }
+ 
+ /* visited link */
+ a:visited {
+   color:white;
+   background-color:var(--secondColor);
+ }
+ 
+ /* mouse over link */
+ a:hover {
+   color:white;
+   background-color:var(--thirdColor);
+ }
+ 
+ /* selected link */
+ a:active {
+   color:white;
+   background-color:var(--thirdColor);
+ }
+/* ###################################### */
+.container{
+   display: flex;
+   flex-direction: row;
+   margin:0;
+   min-width: 100%;
+   padding:0;
+   background-color: tan;
+}
+
+.absolute{
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   position: absolute;
+   box-sizing: border-box !important;
+   top: .1rem;
+
+   padding:.8rem;
+   color:white;
+}
+
+.link a{
+   font-size: 1.5rem;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: flex-start;
+
+}
+.link a span{
+   font-weight: 600;
+}
+
+.link a{
+   padding:.5rem;
+   box-sizing: border-box;
+   transition: all .2s ease-in-out;
+}
+
+.l{
+   background-image: url('../assets/arrow-left.svg');
+}
+
+.svg{
+   background-size: contain;
+   height: 1.05em;
+   width:1.05em;
+   margin:auto 0 auto .7rem;
+   transition: margin .4s ease-out;
+   
+}
+
+.svg.l:hover{
+   animation: hoverLink .4s linear reverse both;
+}
+.link a:hover{
+   text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+}
+
+.place,.data{
+   display: inline-flex;
+   justify-content: center;
+   align-items: center
+}
+.data{
+   margin-left: 1rem;
+}
+
+.place span{
+   color:red;
+   margin:0 .45rem;
+}
+/* ###################################### */
+
+#ranking{
+   display:flex; 
+   flex-direction: column;
+   align-items: center;
+   color:white;
+   padding:0;
+   margin:0;
+
+   font-size:1.25rem;
+}
+#ranking li{
+   list-style-type:none;
+   text-align: center;
+   display: flex;
+   width:100%;
+   justify-content: center;
+   flex-direction: row;
+
+   margin-top:1.2rem;
+}
+
+@keyframes hoverLink{
+   0%{
+      transform: translateY(0) rotate(0deg);
+   }
+   40%{
+      transform: translateY(-2px)  rotate(144deg);
+   }
+   45%{
+      transform: translateY(-3px) rotate(162deg);
+   }
+   50%{
+      transform: translateY(-4px) rotate(180deg);
+   }
+   55%{
+      transform: translateY(-3px) rotate(198deg);
+   }
+   60%{
+      transform: translateY(-2px) rotate(216deg);
+   }
+   100%{
+      transform: translateY(0) rotate(360deg);
+   }
+}
