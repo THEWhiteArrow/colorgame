@@ -43,7 +43,6 @@ app.get('/', async (req, res) => {
 app.get('/ranking', async (req, res) => {
    const scores = await Score.find({});
    const sortedScores = sortingObj(scores);
-   res.send(sortedScores)
    res.render('ranking', { sortedScores });
 })
 
