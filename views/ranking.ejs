@@ -6,24 +6,42 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Ranking</title>
    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
-   <link href="/css/style.css" rel="stylesheet" type="text/css">
+   <link href="/css/ranking.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
    <h1 style="display: inline-flex; flex-direction: column;width:100%">
       <span>Global Ranking</span>
    </h1>
+   <div class="container">
 
-   <ul id="ranking">
-      <% let n=1 %>
-      <% for(let score of sortedScores) { %>
-      <li>
-         <div class="place">Place <span><%= n %></span> :</div>
-         <div class="data"> <%=score.user  %> - <%= score.score %> - <%= score.mode %> </div>
-      </li>
-      <% n+=1 %>
-      <% } %>
-   </ul>
+      <ul id="ranking">
+         <% let n=1 %>
+         <% for(let score of sortedScores) { %>
+         <% if(score.mode==="hard") {%>
+         <li>
+            <div class="place">Place <span><%= n %></span> :</div>
+            <div class="data"> <%=score.user  %> - <%= score.score %> - <%= score.mode %> </div>
+         </li>
+         <% n+=1 %>
+         <% } %>
+         <% } %>
+      </ul>
+
+      <ul id="ranking">
+         <%  n=1 %>
+         <% for(let score of sortedScores) { %>
+         <% if(score.mode==="easy") {%>
+         <li>
+            <div class="place">Place <span><%= n %></span> :</div>
+            <div class="data"> <%=score.user  %> - <%= score.score %> - <%= score.mode %> </div>
+         </li>
+         <% n+=1 %>
+         <% } %>
+         <% } %>
+      </ul>
+
+   </div>
    <div class="absolute left">
       <div class="link">
          <a href="/"><span>Play</span>
