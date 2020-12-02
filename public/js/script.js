@@ -58,7 +58,7 @@ const appendBlur = () => {
 
 const sendScore = async () => {
    try {
-      const res = await fetch('/ranking', {
+      const res = await fetch('https://colorgame-dt.herokuapp.com/ranking', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json'
@@ -74,13 +74,13 @@ const sendScore = async () => {
       console.log('ERROR', e)
    }
    alert(`${user}, ${score}, ${mode}`);
-   window.location.replace('/ranking');
+   window.location.replace('https://colorgame-dt.herokuapp.com/ranking');
 }
 
 const fetchData = () => {
    interval = setInterval(async () => {
       try {
-         const res = await fetch('/?q=fetch')
+         const res = await fetch('https://colorgame-dt.herokuapp.com/?q=fetch')
          const data = await res.json();
          console.log(data)
          if (data.score !== parseInt(recordDisplay.innerText)) {
