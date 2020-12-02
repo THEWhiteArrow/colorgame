@@ -34,7 +34,7 @@ const onFormSubmit = async function (e) {
    e.preventDefault();
    const inputVal = form.elements.user.value;
    user = inputVal;
-   sendScore();
+   score > 0 ? sendScore() : null;
 }
 
 const appendBlur = () => {
