@@ -115,7 +115,6 @@ a:link {
 }
 
 .link{ 
-   text-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
    transition: all .2s ease-in-out;
 }
 
