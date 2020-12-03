@@ -16,6 +16,7 @@ body{
    font-family:Verdana, sans-serif;     
    background-image: url('../assets/meteor.svg');
    background-size: auto;
+   font-family: 'JetBrains Mono', monospace;
 }
 
 h1{
@@ -160,20 +161,19 @@ input:focus:not(:focus-visible){
    box-sizing: border-box !important;
    top: .1rem;
 
-   padding:.8rem;
+   padding:.4rem .8rem;
    color:white;
 }
 
 .absolute .score{
    display: flex;
    flex-direction: column;
-   margin-top:.3rem;
+   margin-top:3rem;
    
    padding-left:.5rem;
 }
 
 .link a{
-   font-size: 1.5rem;
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -188,28 +188,31 @@ input:focus:not(:focus-visible){
 }
 
 .link a .svg{
+   height:1.8rem;
+   width:1.8rem;
+   margin-left:.6rem;
    background-size: contain;
-   height: 1.05em;
-   width:1.05em;
-   margin:auto 0 auto .7rem;
-   transition: margin .4s ease-out;
-   
 }
 
-.link .svg.r:hover{
-   animation: hoverLink .4s linear normal both;
-}
+
+
 .link a,.save{
+   font-size: 2rem;
    padding:.5rem;
    box-sizing: border-box;
+   text-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
    transition: all .2s ease-in-out;
 }
 .link a:hover,.save:hover{
-   text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+   transform: scale(1.03);
+   text-shadow: 0px 2px 15px rgba(0, 0, 0, 1);
 }
-.save{
 
-   font-size: 1.5rem;
+a:hover .svg{
+   animation: hoverLink .3s linear normal both;
+}
+
+.save{
    font-weight: 600;
    color:white ;
    cursor: pointer;
@@ -226,10 +229,12 @@ input:focus:not(:focus-visible){
     flex-wrap: wrap;
     justify-content: space-evenly;
     
-
-}
-
+    
+   }
+   
 .square{
+   position: relative;
+   overflow: hidden;
     background-color: indianred;
     width: 30%;
     padding-bottom: 30%; 
@@ -237,10 +242,39 @@ input:focus:not(:focus-visible){
     border-radius: 15%;
     display: block;
     cursor: pointer;
-    transition: all 0.6s;
-    -webkit-transition:  all 0.6s;
-    -moz-transition:  all 0.6s; 
+    transition: all 0.8s;
+    -webkit-transition:  all 0.8s;
+    -moz-transition:  all 0.8s; 
 }
+
+.square:after{
+   content:'';
+   position: absolute;
+   opacity: 0;
+   left:-50%;
+   padding-right:0%;
+   padding-bottom: 100%; 
+ 
+   transform: skew(-40deg);
+   border-radius: 15%;
+   filter: blur(40px);
+   background: rgba(255, 255, 255, 0.178);
+    /* background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%); */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.062) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%);
+    /* transition: all .4s ease-in-out ; */
+    transition-property: opacity,left,padding-right;
+    transition-duration: 0.15s,0.1s,0.5s;
+    transition-timing-function: ease;
+}
+
+.square:hover:after{
+   opacity: 1;
+   left:0%;
+   padding-right: 300%;
+
+}
+
+
 
 .selected{
     background-color: steelblue;
@@ -248,7 +282,7 @@ input:focus:not(:focus-visible){
 }
 
 .entice{
-  animation: entice .2s ease-out;
+  animation: entice .2s ease-in-out;
 }
 
 .animation{
@@ -299,10 +333,10 @@ input:focus:not(:focus-visible){
 
 @keyframes entice {
    0%{
-      transform: rotate(-5deg);
+      transform: rotate(-1deg);
    }
    30% {
-      transform: rotate(7deg);
+      transform: rotate(3deg);
    }
    70% {
       transform: rotate(-2deg);
