@@ -56,6 +56,8 @@ const appendBlur = () => {
       form = document.querySelector('form');
       form.addEventListener('submit', onFormSubmit);
       isOver = true;
+   } else {
+      displayError('You need to score over 0 !')
    }
 }
 
@@ -255,5 +257,46 @@ function mouseOut() {
 const disableComponents = () => {
    for (let i of content) i.classList.add('disable')
 }
+
+const manageOldCards = (action, ...arguments) => {
+   for (let arg of arguments) {
+      const items = document.querySelectorAll(arg);
+      if (action === 'hide' || action === 'show') {
+         for (let item of items) item.classList.toggle('hide')
+      } else {
+         for (let item of items) item.remove();
+      }
+   }
+}
+
+const displayError = (msg) => {
+   manageOldCards('delete', '.error');
+   const error = document.createElement('div');
+
+   error.innerHTML = [
+      `
+         <p>ERROR:  ${msg}</p>
+         <button id="closeError">
+         <sup>X</sup></button>`
+   ];
+   error.classList.add('error', 'content');
+   document.body.append(error);
+
+   error.addEventListener('click', function () {
+      fadeOutHideError(this);
+   })
+   setTimeout(() => {
+      fadeOutHideError(error);
+
+   }, 7000);
+}
+
+const fadeOutHideError = (el) => {
+   el.style.opacity = '0';
+   setTimeout(() => {
+      el.remove();
+   }, 700);
+}
+
 //onLoad
 init();
