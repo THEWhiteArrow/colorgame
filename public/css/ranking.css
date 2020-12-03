@@ -6,7 +6,7 @@ body{
    background-color: #232323;
    margin: 0;
    font-family:Verdana, sans-serif;     
-   background-image: url('../assets/meteor.svg');
+   background-image: url('../assets/bg.svg');
    background-size: auto;
    font-family: 'JetBrains Mono', monospace;
 }
@@ -21,7 +21,15 @@ h1{
     font-weight: 700;
     font-size: 2.5rem;
     line-height: 1.15;
+}
 
+h2{
+   font-size: 1.8em;
+   color:white;
+   margin:0;
+   margin:2rem 0 1.4rem 0;
+   padding:0 .8rem;
+   border-bottom: 1px solid white;
 }
 
 a{
@@ -68,7 +76,8 @@ a:link {
    margin:0;
    justify-content: center;
    align-self: center;
-   width: 80%;
+   width: 100%;
+   max-width:1000px;
    padding:0;
 }
 
@@ -126,13 +135,20 @@ a:hover .svg{
    animation: hoverLink .3s linear reverse both;
 }
 
+.col{
+   display: flex;
+   flex: 2;
+   flex-direction: column;
+   align-items: center;
+}
 
 ul{
    display: flex;
    flex:2;
-   flex-direction: column;
    flex-wrap: wrap;
    color:white;
+   margin:0;
+   padding: 0;
 
    font-size:1.25rem;
    font-weight: 600;
@@ -141,8 +157,9 @@ ul{
 li{
    display:flex;
    flex-direction: row;
-   justify-content: flex-start;
+   justify-content: center;
 
+   width:100%;
    margin:.8rem .8rem .1rem .8rem ;
 }
 
@@ -154,7 +171,15 @@ li{
    margin-left:.6rem;
 }
 /* ###################################### */
-
+@media(max-width:600px){
+   h2{
+      font-size: 1.6em;
+   }
+   li{
+      flex-direction: column;
+      text-align: center;
+   }
+}
 
 
 @keyframes hoverLink{

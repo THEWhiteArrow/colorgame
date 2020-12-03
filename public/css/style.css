@@ -3,19 +3,16 @@ html{
     width:100%;
     margin:0;
     padding:0;
-    
-}
-
-body{ 
+    position: relative;
+   }
+   
+   body{ 
    display: flex;
    flex-direction: column;
-   position: relative;
-   min-height: 100vh;
-   background-color: #232323;
+   min-height: 100%;
    margin: 0;
-   font-family:Verdana, sans-serif;     
-   background-image: url('../assets/meteor.svg');
-   background-size: auto;
+   background-image: url('../assets/bg.svg');
+   background-size: cover;
    font-family: 'JetBrains Mono', monospace;
 }
 
@@ -63,7 +60,14 @@ main{
   display: flex;
   justify-content: center;
   z-index: 5;
+  margin-bottom: 3rem;
 }
+
+p{
+   margin:0;
+   padding:0;
+}
+
 
 a{
    margin:0;
@@ -123,7 +127,14 @@ input:focus:not(:focus-visible){
 #recordUser{
    font-weight: 900;
 }
-
+ #footer{
+   position: absolute;
+   bottom:0;
+   width:100%;
+   padding:.5rem;
+   box-sizing: border-box;
+   color: white;
+ }
 
 /* classes */
 .disable {
@@ -153,7 +164,7 @@ input:focus:not(:focus-visible){
 .left{left:0.5%}
 .right{right:0.5%}
 
-.absolute{
+.absolute {
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;
@@ -257,7 +268,6 @@ a:hover .svg{
    transform: skew(-40deg);
    border-radius: 15%;
    filter: blur(40px);
-   background: rgba(255, 255, 255, 0.178);
     /* background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%); */
     background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.062) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%);
     /* transition: all .4s ease-in-out ; */
@@ -270,7 +280,6 @@ a:hover .svg{
    opacity: 1;
    left:0%;
    padding-right: 300%;
-
 }
 
 
@@ -287,6 +296,43 @@ a:hover .svg{
 .animation{
   animation: shaking 1s linear  normal both;
 }
+
+
+.error{
+   font-family: Arial,sans-serif;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   position:absolute;
+   border-radius: 0 8px 8px 0;
+   top:.3rem;
+   left:0;
+   cursor: pointer;
+   
+   padding:5px 5px 5px 35px;
+   transform:translateX(-25px);
+
+   background-color:#ffcccc;
+   border:1px solid #e28c8c;
+   color: #b64e4e;
+   font-weight:400;
+
+   transition:all .7s ease-in-out;
+   animation:slideIn .50s cubic-bezier(0.175, 0.885,0.32,1.320);
+}
+
+
+.error #closeError{
+   background-color: inherit;
+   border:none;
+   color:inherit;
+   padding:0;
+   margin:0;
+   margin-left:1rem;
+
+}
+
+/* ######################### MEDIA QUARIES ####################### */
 
 @media (max-width:765px) {
   #colorDisplay{
@@ -318,6 +364,13 @@ a:hover .svg{
   }
 }
 
+
+/* ######################### KEYFRAMES ####################### */
+
+@keyframes slideIn {
+   from {opacity: 0;transform:translateX(-220px)}
+   to {opacity: 1;transform:translateX(-25px)}
+}
 
 @keyframes fadeIn {
    from {

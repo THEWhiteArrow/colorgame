@@ -14,37 +14,39 @@
 </head>
 
 <body>
-   <h1>
-      <span>Global Ranking</span>
-   </h1>
-   <div style></div>
+   <h1>Global Ranking</h1>
    <div class="container">
+      <div class="col">
+         <h2>Hard Mode</h2>
+         <ul id="ranking">
+            <% let n=1 %>
+            <% for(let score of sortedScores) { %>
+            <% if(score.mode==="hard") {%>
+            <li>
+               <div class="place">Place <span><%= n %></span> : </div>
+               <div class="data"> <%=score.user  %> - <%= score.score %></div>
+            </li>
+            <% n+=1 %>
+            <% } %>
+            <% } %>
+         </ul>
+      </div>
 
-      <ul id="ranking">
-         <% let n=1 %>
-         <% for(let score of sortedScores) { %>
-         <% if(score.mode==="hard") {%>
-         <li>
-            <div class="place">Place <span><%= n %></span> : </div>
-            <div class="data"> <%=score.user  %> - <%= score.score %> - <%= score.mode %> </div>
-         </li>
-         <% n+=1 %>
-         <% } %>
-         <% } %>
-      </ul>
-
-      <ul id="ranking">
-         <%  n=1 %>
-         <% for(let score of sortedScores) { %>
-         <% if(score.mode==="easy") {%>
-         <li>
-            <div class="place">Place <span><%= n %></span> :</div>
-            <div class="data"> <%=score.user  %> - <%= score.score %> - <%= score.mode %> </div>
-         </li>
-         <% n+=1 %>
-         <% } %>
-         <% } %>
-      </ul>
+      <div class="col">
+         <h2>Easy Mode</h2>
+         <ul id="ranking">
+            <%  n=1 %>
+            <% for(let score of sortedScores) { %>
+            <% if(score.mode==="easy") {%>
+            <li>
+               <div class="place">Place <span><%= n %></span> :</div>
+               <div class="data"> <%=score.user  %> - <%= score.score %></div>
+            </li>
+            <% n+=1 %>
+            <% } %>
+            <% } %>
+         </ul>
+      </div>
 
    </div>
    <div class="absolute left">
