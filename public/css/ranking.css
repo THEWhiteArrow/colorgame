@@ -144,8 +144,8 @@ a:hover .svg{
 
 ul{
    display: flex;
+   flex-direction: column;
    flex:2;
-   flex-wrap: wrap;
    color:white;
    margin:0;
    padding: 0;

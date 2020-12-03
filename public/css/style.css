@@ -76,28 +76,17 @@ a{
    text-transform: uppercase;
 }
 
-a:link {
-   color:white;
-   background-color:var(--secondColor);
- }
- 
- /* visited link */
- a:visited {
+a:link,a:visited {
    color:white;
    background-color:var(--secondColor);
  }
  
  /* mouse over link */
- a:hover {
+ a:hover,a:active {
    color:white;
    background-color:var(--thirdColor);
  }
  
- /* selected link */
- a:active {
-   color:white;
-   background-color:var(--thirdColor);
- }
 /* groups */
 button:focus:not(:focus-visible){
    outline: none;
