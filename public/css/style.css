@@ -200,7 +200,6 @@ input:focus:not(:focus-visible){
    font-size: 2rem;
    padding:.5rem;
    box-sizing: border-box;
-   text-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
    transition: all .2s ease-in-out;
 }
 .link a:hover,.save:hover{
