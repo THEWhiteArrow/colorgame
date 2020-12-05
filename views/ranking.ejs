@@ -1,57 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Ranking</title>
-   <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
-   <link href="/css/ranking.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-   <h1>Global Ranking</h1>
-   <div class="container">
-      <div class="col">
-         <h2>Hard Mode</h2>
-         <ul id="ranking">
-            <% let n=1 %>
-            <% for(let score of sortedScores) { %>
-            <% if(score.mode==="hard") {%>
-            <li>
-               <div class="place">Place <span><%= n %></span> : </div>
-               <div class="data"> <%=score.user  %> - <%= score.score %></div>
-            </li>
-            <% n+=1 %>
-            <% } %>
-            <% } %>
-         </ul>
-      </div>
-
-      <div class="col">
-         <h2>Easy Mode</h2>
-         <ul id="ranking">
-            <%  n=1 %>
-            <% for(let score of sortedScores) { %>
-            <% if(score.mode==="easy") {%>
-            <li>
-               <div class="place">Place <span><%= n %></span> :</div>
-               <div class="data"> <%=score.user  %> - <%= score.score %></div>
-            </li>
-            <% n+=1 %>
-            <% } %>
-            <% } %>
-         </ul>
-      </div>
-
+<% layout('layouts/boilerplate') %>
+<h1>Global Ranking</h1>
+<div class="container">
+   <div class="col">
+      <h2>Hard Mode</h2>
+      <ul id="ranking">
+         <% let n=1 %>
+         <% for(let score of sortedScores) { %>
+         <% if(score.mode==="hard") {%>
+         <li>
+            <div class="place">Place <span><%= n %></span> : </div>
+            <div class="data"> <%=score.user  %> - <%= score.score %></div>
+         </li>
+         <% n+=1 %>
+         <% } %>
+         <% } %>
+      </ul>
    </div>
-   <div class="absolute left">
-      <div class="link">
-         <a href="/"><span class="msg">Play</span>
-            <span class="svg l"></span>
-         </a>
-      </div>
-   </div>
-</body>
 
-</html>
+   <div class="col">
+      <h2>Easy Mode</h2>
+      <ul id="ranking">
+         <%  n=1 %>
+         <% for(let score of sortedScores) { %>
+         <% if(score.mode==="easy") {%>
+         <li>
+            <div class="place">Place <span><%= n %></span> :</div>
+            <div class="data"> <%=score.user  %> - <%= score.score %></div>
+         </li>
+         <% n+=1 %>
+         <% } %>
+         <% } %>
+      </ul>
+   </div>
+
+</div>
+<div class="absolute left">
+   <div class="link">
+      <a href="/"><span class="msg">Play</span>
+         <span class="svg l"></span>
+      </a>
+   </div>
+</div>

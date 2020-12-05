@@ -29,8 +29,17 @@ h1{
     margin: 0;
     padding: 20px 0;
     font-weight: normal;
+    font-size:2.3em;
     line-height: 1.15;
+}
 
+h2{
+   font-size: 1.8em;
+   color:white;
+   margin:0;
+   margin:2rem 0 1.4rem 0;
+   padding:0 .8rem;
+   border-bottom: 1px solid white;
 }
 
 nav{
@@ -84,15 +93,18 @@ a{
 a:link,a:visited {
    color:white;
    background-color:var(--secondColor);
- }
- 
- /* mouse over link */
- a:hover,a:active {
+}
+
+/* mouse over link */
+a:hover,a:active {
    color:white;
    background-color:var(--thirdColor);
  }
  
-/* groups */
+ /* groups */
+ a:focus:not(:focus-visible){
+   outline: none;
+}
 button:focus:not(:focus-visible){
    outline: none;
 }
@@ -100,10 +112,31 @@ input:focus:not(:focus-visible){
    outline: none;
 }
 
+ul{
+   display: flex;
+   flex-direction: column;
+   flex:2;
+   color:white;
+   margin:0;
+   padding: 0;
+
+   font-size:1.25rem;
+   font-weight: 600;
+}
+
+li{
+   display:flex;
+   flex-direction: row;
+   justify-content: center;
+
+   width:100%;
+   margin:.8rem .8rem .1rem .8rem ;
+}
 
 /* id's */
+
 #colorDisplay{
-  font-size: 2em;
+  font-size: 1.6em;
   cursor: default;
 }
 
@@ -115,7 +148,13 @@ input:focus:not(:focus-visible){
 }
 
 #message{
+   height: 100%;
+   display: flex;
+   align-items: center;
+   box-sizing: border-box;
+   justify-content: center;
     align-self: center;
+    padding: .2rem .2rem .3rem .2rem;
 }
 
 #recordUser{
@@ -130,33 +169,78 @@ input:focus:not(:focus-visible){
    color: white;
  }
 
-/* classes */
-.disable {
-   pointer-events: none;
+ 
+ /* classes */
+ .disable {
+    /* pointer-events: none; */
+   z-index: -1000;
+   filter:blur(3px);
 }
+
+
 .formula{
    position: absolute;
    display: flex;
    justify-content: center;
+   align-self: center;
    align-items: center;
    flex-direction: column;
-   top:30%;
-   left:50%;
-   right:50%;
+   top:20rem;
+   
    z-index: 1000;
-   background-color: indianred;
+   width:50%;
+   max-width: 400px;
+   background-color:white;
+   -webkit-box-shadow: 0px 0px 100px 10px rgba(255, 255, 255, 0.493) ;
+   box-shadow: 0px 0px 100px 10px  rgba(255, 255, 255, 0.493);
 
-   animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   transition: all 0.7s;
+   animation: fadeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.175);
 }
-.blur{
-   filter:blur(3px)
+
+.btnForm{
+    width:100%;
+    color:white;
+    background-color: rgb(70, 130, 180);
+ }
+
+ .btnForm:hover{  
+  color: rgb(70, 130, 180);
+  background-color:white;
+ }
+form{
+   display: flex;
+   flex-direction: column;
+   width: 100%;
 }
+input{
+   box-sizing: border-box;
+   border: none;
+   height: 1.6rem;
+   font-size: 1rem;
+   font-weight: 600;
+   color:steelblue;
+   padding-left: .2rem;
+   text-align: center;
+   outline:none;
+}
+input::placeholder{
+   color:steelblue;
+   text-align: center;
+}
+
+
 
 .content{
    transition:all 1s ease-in-out;
 }
-.left{left:0.5%}
-.right{right:0.5%}
+.left{
+   left:0.5%;
+}
+.right{
+   right:0.5%;
+}
+
 
 .absolute {
    display: flex;
@@ -170,7 +254,7 @@ input:focus:not(:focus-visible){
    color:white;
 }
 
-.absolute .score{
+.score{
    display: flex;
    flex-direction: column;
    margin-top:3rem;
@@ -179,20 +263,25 @@ input:focus:not(:focus-visible){
 }
 
 .link a{
+   font-size: 2rem;
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: flex-start;
-
+   box-sizing: border-box;
 }
+
 .link a span{
    font-weight: 600;
 }
 .r{
    background-image: url('../assets/arrow-right.svg');
 }
+.l{
+   background-image: url('../assets/arrow-left.svg');
+}
 
-.link a .svg{
+.svg{
    height:1.8rem;
    width:1.8rem;
    margin-left:.6rem;
@@ -201,19 +290,22 @@ input:focus:not(:focus-visible){
 
 
 
-.link a,.save{
+.link ,.save{
    font-size: 2rem;
    padding:.5rem;
    box-sizing: border-box;
    transition: all .2s ease-in-out;
 }
-.link a:hover,.save:hover{
+.link:hover,.save:hover{
    transform: scale(1.03);
    text-shadow: 0px 2px 15px rgba(0, 0, 0, 1);
 }
 
-a:hover .svg{
+a:hover .svg.r{
    animation: hoverLink .3s linear normal both;
+}
+a:hover .svg.l{
+   animation: hoverLink .3s linear reverse both;
 }
 
 .save{
@@ -223,18 +315,27 @@ a:hover .svg{
 }
 
 
+.place span{
+   color:red;
+}
+
+.data{
+   margin-left:.6rem;
+}
 
 .container{
-    width: 100%;
-    max-width: 800px;
-    margin: 15px 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+   align-self:center;
+
+   width: 100%;
+   max-width: 860px;
+   padding:0;
+   margin: 15px 0;
     
-    
-   }
+}
    
 .square{
    position: relative;
@@ -276,6 +377,12 @@ a:hover .svg{
    padding-right: 300%;
 }
 
+.col{
+   display: flex;
+   flex: 2;
+   flex-direction: column;
+   align-items: center;
+}
 
 
 .selected{
@@ -315,7 +422,6 @@ a:hover .svg{
    animation:slideIn .50s cubic-bezier(0.175, 0.885,0.32,1.320);
 }
 
-
 .error #closeError{
    background-color: inherit;
    border:none;
@@ -340,6 +446,10 @@ a:hover .svg{
     padding-bottom: 45%;
     margin-bottom:calc(10%/3);
   }
+  li{
+   flex-direction: column;
+   text-align: center;
+   }
 }
 @media (max-width:556px) {
   #colorDisplay{
@@ -351,7 +461,6 @@ a:hover .svg{
     font-size: 0.8rem;
   }
 }
-
 @media (max-width:350px) {
   #message{
     display:none;
@@ -362,79 +471,37 @@ a:hover .svg{
 /* ######################### KEYFRAMES ####################### */
 
 @keyframes slideIn {
-   from {opacity: 0;transform:translateX(-220px)}
-   to {opacity: 1;transform:translateX(-25px)}
+   from {opacity: 0;transform:translateX(-220px);}
+   to {opacity: 1;transform:translateX(-25px);}
 }
 
 @keyframes fadeIn {
-   from {
-      opacity: 0;
-      transform: scale(0.1);
-   }
-   to {
-      opacity: 1;
-      transform: scale(1);
-   }
+   from {opacity: 0;transform: scale(0.1);}
+   to {opacity: 1;transform: scale(1);}
 }
 
 @keyframes entice {
-   0%{
-      transform: rotate(-1deg);
-   }
-   30% {
-      transform: rotate(3deg);
-   }
-   70% {
-      transform: rotate(-2deg);
-   }
-   100% {
-      transform: rotate(0deg);
-   }
+   0%{transform: rotate(-1deg)}
+   30% {transform: rotate(3deg)}
+   70% {transform: rotate(-2deg)}
+   100% {transform: rotate(0deg)}
 }
 
 @keyframes shaking{
-  0%{
-      transform:rotate(0deg);
-  }
-  20%{
-      transform:rotate(110deg) ;
-  }
-  50%{
-      transform:rotate(20deg) ;
- 
-  }
-  70%{
-      transform:rotate(-75deg) ;
-  }
-  90%{
-      transform:rotate(34deg) ;
-  }
-  100%{
-      transform:rotate(0deg) ;
-  }
+  0%{transform:rotate(0deg)}
+  20%{transform:rotate(110deg)}
+  50%{transform:rotate(20deg)}
+  70%{transform:rotate(-75deg)}
+  90%{transform:rotate(34deg)}
+  100%{transform:rotate(0deg)}
 }
 
 @keyframes hoverLink{
-   0%{
-      transform: translateY(0) rotate(0deg);
-   }
-   40%{
-      transform: translateY(-2px)  rotate(144deg);
-   }
-   45%{
-      transform: translateY(-3px) rotate(162deg);
-   }
-   50%{
-      transform: translateY(-4px) rotate(180deg);
-   }
-   55%{
-      transform: translateY(-3px) rotate(198deg);
-   }
-   60%{
-      transform: translateY(-2px) rotate(216deg);
-   }
-   100%{
-      transform: translateY(0) rotate(360deg);
-   }
+   0%{transform: translateY(0) rotate(0deg)}
+   40%{transform: translateY(-2px)  rotate(144deg)}
+   45%{transform: translateY(-3px) rotate(162deg)}
+   50%{transform: translateY(-4px) rotate(180deg)}
+   55%{transform: translateY(-3px) rotate(198deg)}
+   60%{transform: translateY(-2px) rotate(216deg)}
+   100%{transform: translateY(0) rotate(360deg)}
 }
-
