@@ -30,91 +30,6 @@ const init = () => {
 }
 
 
-const onFormSubmit = async function (e) {
-   e.preventDefault();
-   const inputVal = form.elements.user.value;
-   const user = inputVal;
-   sendScore(user);
-}
-
-const appendBlur = () => {
-   if (score > 0) {
-      toggleComponents();
-
-      const formula = document.createElement('div');
-      formula.classList.add('formula')
-      formula.innerHTML = [`
-      <button class="btnForm">X</button>
-      <form action='/ranking'>
-         <input type='text' name='user' placeholder='Your nickname'>
-         <button class="btnForm" style="height:3rem;font-size:1.5rem">Sumbit The Record!</button>
-      </form>
-      `];
-
-
-      document.body.append(formula);
-      form = document.querySelector('form');
-      document.querySelector('.btnForm').addEventListener('click', function () {
-         if (removable) {
-            removable = false;
-            toggleComponents();
-            form.removeEventListener('submit', onFormSubmit);
-            formula.style.transform = 'scale(0.01)';
-            formula.style.opacity = '0';
-            setTimeout(() => {
-               formula.remove();
-               removable = true;
-            }, 700)
-         }
-      })
-      form.addEventListener('submit', onFormSubmit);
-   } else {
-      displayError('You need to score over 0 !')
-   }
-}
-
-
-
-const sendScore = async (user) => {
-   try {
-      const res = await fetch('/ranking', {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-            user: user || `player${Math.floor(Math.random() * 1000) + 1}_`,
-            score: score,
-            mode: mode
-         })
-      })
-      console.log('SUCCES');
-   } catch (e) {
-      console.log('ERROR', e)
-   }
-   window.location.replace('/ranking');
-}
-
-const fetchData = () => {
-   interval = setInterval(async () => {
-      try {
-         const res = await fetch('/?q=fetch')
-         const data = await res.json();
-         console.log(data)
-         if (data.score !== parseInt(recordDisplay.innerText)) {
-            recordDisplay.innerText = data.score;
-            userRecordDisplay.innerText = data.user;
-         }
-      } catch (e) {
-         console.log('ERROR - CANNOT FETCH A RECORD!')
-         clearInterval(interval);
-         console.log('LOOKING FOR UPDATES STOPPED!')
-      }
-   }, 10000)
-
-}
-
-
 const setUpSquares = async () => {
    for (let square of squares) {
       square.style.backgroundColor = colors[square];
@@ -128,21 +43,30 @@ const setUpSquares = async () => {
                score += 1;
                messageDisplay.textContent = `Correct! ${score}`;
                resetButton.textContent = 'KEEP GOING?';
+               buttonsColor = winningColor;
+               buttonsColorWin();
             } else {
                resetButton.textContent = 'PLAY AGAIN?';
+               markOutSaveBtn();
             }
             changeSguaresColor(winningColor);
-            buttonsColor = winningColor;
-            buttonsColorWin();
          } else {
             score > parseInt(recordDisplay.innerText) ? appendBlur() : null;
             streak = false;
-
+            markOutSaveBtn();
             this.style.opacity = 0;
             messageDisplay.textContent = 'Try Again!';
          }
       })
    }
+}
+
+const markOutSaveBtn = () => {
+   saveBtn.classList.add('markOut');
+   setTimeout(() => {
+
+      saveBtn.classList.remove('markOut');
+   }, 200)
 }
 
 const setUpButtons = () => {
@@ -155,17 +79,17 @@ const setUpButtons = () => {
          }
          this.classList.add('selected');
          if (this.textContent === 'Easy') {
-            if (!mode === 'easy') {
-               mode = 'easy';
+            if (mode !== 'easy') {
                score = 0;
+               mode = 'easy';
                messageDisplay.innerText = `${score}`
             }
             numOfColors = 3;
          } else {
-            if (!mode === 'hard') {
-               mode = 'hard';
+            if (mode !== 'hard') {
                score = 0;
                messageDisplay.innerText = `${score}`
+               mode = 'hard';
             }
             numOfColors = 6;
          }
@@ -228,12 +152,13 @@ const buttonsColorWin = () => {
       }
 
    }
+
+   h1.style.backgroundColor = buttonsColor;
    messageDisplay.style.color = buttonsColor;
 }
 
 const changeSguaresColor = (color) => {
    for (let i = 0; i < colors.length; i++) {
-      h1.style.backgroundColor = color;
       squares[i].style.backgroundColor = color;
       squares[i].style.opacity = 1;
       squares[i].classList.add('animation');
@@ -324,5 +249,86 @@ const fadeOutHideError = (el) => {
    }, 700);
 }
 
+const onFormSubmit = async function (e) {
+   e.preventDefault();
+   const inputVal = form.elements.user.value;
+   const user = inputVal;
+   sendScore(user);
+}
+
+const appendBlur = () => {
+   if (score > 0) {
+      toggleComponents();
+
+      const formula = document.createElement('div');
+      formula.classList.add('formula')
+      formula.innerHTML = [`
+      <button class="btnForm">X</button>
+      <form action='/ranking'>
+         <input type='text' name='user' placeholder='Your nickname'>
+         <button class="btnForm" style="height:3rem;font-size:1.5rem">Sumbit The Record!</button>
+      </form>
+      `];
+
+
+      document.body.append(formula);
+      form = document.querySelector('form');
+      document.querySelector('.btnForm').addEventListener('click', function () {
+         if (removable) {
+            removable = false;
+            toggleComponents();
+            form.removeEventListener('submit', onFormSubmit);
+            formula.style.transform = 'scale(0.01)';
+            formula.style.opacity = '0';
+            setTimeout(() => {
+               formula.remove();
+               removable = true;
+            }, 700)
+         }
+      })
+      form.addEventListener('submit', onFormSubmit);
+   } else {
+      displayError('You need to score over 0 !')
+   }
+}
+
+const sendScore = async (user) => {
+   try {
+      const res = await fetch('/ranking', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            user: user || `player${Math.floor(Math.random() * 1000) + 1}_`,
+            score: score,
+            mode: mode
+         })
+      })
+      console.log('SUCCES');
+   } catch (e) {
+      console.log('ERROR', e)
+   }
+   window.location.replace('/ranking');
+}
+
+const fetchData = () => {
+   interval = setInterval(async () => {
+      try {
+         const res = await fetch('/?q=fetch')
+         const data = await res.json();
+         console.log(data)
+         if (data.score !== parseInt(recordDisplay.innerText)) {
+            recordDisplay.innerText = data.score;
+            userRecordDisplay.innerText = data.user;
+         }
+      } catch (e) {
+         console.log('ERROR - CANNOT FETCH A RECORD!')
+         clearInterval(interval);
+         console.log('LOOKING FOR UPDATES STOPPED!')
+      }
+   }, 10000)
+
+}
 //onLoad
 init();

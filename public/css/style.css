@@ -14,7 +14,9 @@ html{
    body{ 
    display: flex;
    flex-direction: column;
-   min-height: 100%;
+   overflow: hidden;
+   min-height: 100vh;
+   height: 100%;
    margin: 0;
    background-image: url('../assets/bg.svg');
    background-size: cover;
@@ -300,6 +302,12 @@ input::placeholder{
 .link:hover,.save:hover{
    transform: scale(1.03);
    text-shadow: 0px 2px 15px rgba(0, 0, 0, 1);
+}
+
+.markOut{
+   transform: scale(1.03);
+   text-shadow: 0px 2px 15px rgba(255, 255, 255, 1);
+   color:rgb(204, 85, 85) !important;
 }
 
 a:hover .svg.r{
