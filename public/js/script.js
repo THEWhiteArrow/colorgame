@@ -1,4 +1,3 @@
-const content = document.querySelectorAll('.content');
 const squares = document.querySelectorAll('.square');
 const colorDisplay = document.querySelector('#colorDisplay');
 const messageDisplay = document.querySelector('#message');
@@ -6,6 +5,8 @@ const h1 = document.querySelector('h1');
 const resetButton = document.querySelector('#reset');
 const modeButtons = document.querySelectorAll('.mode');
 const buttons = document.querySelectorAll('button');
+
+const content = document.querySelectorAll('.content');
 const saveBtn = document.querySelector('.save');
 const userRecordDisplay = document.querySelector('#recordUser');
 const recordDisplay = document.querySelector('#recordScore');
