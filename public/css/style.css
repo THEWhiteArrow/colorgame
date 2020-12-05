@@ -165,6 +165,7 @@ li{
    bottom:0;
    width:100%;
    padding:.5rem;
+   text-align: right;
    box-sizing: border-box;
    color: white;
  }
