@@ -20,6 +20,7 @@ let score = 0;
 let interval;
 let form;
 let mode = 'hard';
+let removable = true;
 
 const init = () => {
    reset(numOfColors);
@@ -38,24 +39,35 @@ const onFormSubmit = async function (e) {
 
 const appendBlur = () => {
    if (score > 0) {
-      disableComponents();
-      for (let i of content) {
-         i.classList.add('blur');
-      }
+      toggleComponents();
 
       const formula = document.createElement('div');
       formula.classList.add('formula')
       formula.innerHTML = [`
+      <button class="btnForm">X</button>
       <form action='/ranking'>
          <input type='text' name='user' placeholder='Your nickname'>
-         <button>Sumbit The Record!</button>
+         <button class="btnForm" style="height:3rem;font-size:1.5rem">Sumbit The Record!</button>
       </form>
       `];
 
+
       document.body.append(formula);
       form = document.querySelector('form');
+      document.querySelector('.btnForm').addEventListener('click', function () {
+         if (removable) {
+            removable = false;
+            toggleComponents();
+            form.removeEventListener('submit', onFormSubmit);
+            formula.style.transform = 'scale(0.01)';
+            formula.style.opacity = '0';
+            setTimeout(() => {
+               formula.remove();
+               removable = true;
+            }, 700)
+         }
+      })
       form.addEventListener('submit', onFormSubmit);
-      isOver = true;
    } else {
       displayError('You need to score over 0 !')
    }
@@ -112,12 +124,16 @@ const setUpSquares = async () => {
       })
       square.addEventListener('click', function () {
          if (this.style.backgroundColor === winningColor) {
-            streak ? score += 1 : null;
+            if (streak) {
+               score += 1;
+               messageDisplay.textContent = `Correct! ${score}`;
+               resetButton.textContent = 'KEEP GOING?';
+            } else {
+               resetButton.textContent = 'PLAY AGAIN?';
+            }
             changeSguaresColor(winningColor);
             buttonsColor = winningColor;
             buttonsColorWin();
-            messageDisplay.textContent = 'Correct!';
-            resetButton.textContent = 'PLAY AGAIN?'
          } else {
             score > parseInt(recordDisplay.innerText) ? appendBlur() : null;
             streak = false;
@@ -139,11 +155,19 @@ const setUpButtons = () => {
          }
          this.classList.add('selected');
          if (this.textContent === 'Easy') {
+            if (!mode === 'easy') {
+               mode = 'easy';
+               score = 0;
+               messageDisplay.innerText = `${score}`
+            }
             numOfColors = 3;
-            mode = 'easy';
          } else {
+            if (!mode === 'hard') {
+               mode = 'hard';
+               score = 0;
+               messageDisplay.innerText = `${score}`
+            }
             numOfColors = 6;
-            mode = 'hard';
          }
          reset(numOfColors);
 
@@ -176,7 +200,7 @@ const reset = (numOfColors) => {
       squares[i].classList.remove('animation');
    }
    h1.style.backgroundColor = 'steelblue';
-   messageDisplay.textContent = '';
+   messageDisplay.textContent = `${score}`;
    resetButton.textContent = 'NEW COLORS';
 }
 
@@ -190,6 +214,7 @@ const resetButtonsColors = () => {
          button.style.backgroundColor = 'white';
       }
    }
+   messageDisplay.style.color = 'steelblue';
 }
 
 const buttonsColorWin = () => {
@@ -203,6 +228,7 @@ const buttonsColorWin = () => {
       }
 
    }
+   messageDisplay.style.color = buttonsColor;
 }
 
 const changeSguaresColor = (color) => {
@@ -254,8 +280,8 @@ function mouseOut() {
    }
 }
 
-const disableComponents = () => {
-   for (let i of content) i.classList.add('disable')
+const toggleComponents = () => {
+   for (let i of content) i.classList.toggle('disable')
 }
 
 const manageOldCards = (action, ...arguments) => {
