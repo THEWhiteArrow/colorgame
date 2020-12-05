@@ -13,19 +13,22 @@ const findRecord = async () => {
    }
 }
 
-const sortArr = (arr) => {
+const sortArr = arr => {
    const l = arr.length;
-   for (let i = 0; i < l; i++) {
-      for (let j = 1; j < l - i; j++) {
-         if (arr[j].score > arr[j - 1].score) {
-            let x = arr[j];
-            arr[j] = arr[j - 1];
-            arr[j - 1] = x;
-         }
-      }
-   }
+   let pmin = 0, pmax = l - 1, p, i;
+   do {
+      p = -1;
+      for (i = pmin; i < pmax; i++)
+         if (arr[i].score < arr[i + 1].score) {
+            x = arr[i]; arr[i] = arr[i + 1]; arr[i + 1] = x;
+            if (p < 0) pmin = i;
+            p = i;
+         };
+      if (pmin) pmin--;
+      pmax = p;
+   } while (p >= 0);
+
    return arr;
 }
-
 
 module.exports = { findRecord, sortArr }
