@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate') %>
+<script src="/js/anime.min.js" type="text/javascript"></script>
 <h1>Global Ranking</h1>
 <div class="container">
    <div class="col">
@@ -7,8 +8,8 @@
          <% let n=1 %>
          <% for(let score of sortedScores) { %>
          <% if(score.mode==="hard") {%>
-         <li>
-            <div class="place">Place <span><%= n %></span> : </div>
+         <li class="hard">
+            <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
             <div class="data"> <%=score.user  %> - <%= score.score %></div>
          </li>
          <% n+=1 %>
@@ -24,7 +25,7 @@
          <% for(let score of sortedScores) { %>
          <% if(score.mode==="easy") {%>
          <li>
-            <div class="place">Place <span><%= n %></span> :</div>
+            <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
             <div class="data"> <%=score.user  %> - <%= score.score %></div>
          </li>
          <% n+=1 %>
@@ -41,3 +42,26 @@
       </a>
    </div>
 </div>
+
+<script>
+   const tl = anime.timeline({});
+
+tl.add({
+   targets: '.hard',
+   translateX: -400,
+   translateY: -200,
+   opacity:0,
+   duration:0.1,
+   easing: 'easeInOutQuad'
+})
+tl.add({
+   targets: '.hard',
+   opacity:1,
+   translateX: 0,
+   translateY: 0,
+   delay:anime.stagger(200),
+   duration:5000,
+   easing: 'easeInOutQuad'
+})
+
+</script>
