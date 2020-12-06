@@ -22,6 +22,7 @@ let interval;
 let form;
 let mode = 'hard';
 let removable = true;
+let count = true;
 
 const init = () => {
    reset(numOfColors);
@@ -41,7 +42,7 @@ const setUpSquares = async () => {
       square.addEventListener('click', function () {
          if (this.style.backgroundColor === winningColor) {
             if (streak) {
-               score += 1;
+               count ? score += 1 : null;
                messageDisplay.textContent = `Correct! ${score}`;
                resetButton.textContent = 'KEEP GOING?';
                buttonsColor = winningColor;
@@ -51,6 +52,7 @@ const setUpSquares = async () => {
                markOutSaveBtn();
             }
             changeSguaresColor(winningColor);
+            count = false;
          } else {
             score > parseInt(recordDisplay.innerText) ? appendBlur() : null;
             streak = false;
@@ -113,6 +115,7 @@ const setUpButtons = () => {
 
 const reset = (numOfColors) => {
    streak === false ? score = 0 : null;
+   count = true;
    streak = true;
    colors = generateColors(numOfColors);
    winningColor = pickWinningColor();
