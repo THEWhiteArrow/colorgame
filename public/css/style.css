@@ -9,7 +9,10 @@ html{
     margin:0;
     padding:0;
     position: relative;
+
+    
    }
+
    
    body{ 
    display: flex;
@@ -22,6 +25,7 @@ html{
    background-size: cover;
    font-family: 'JetBrains Mono', monospace;  
 }
+
 
 h1{
     color:  white;
@@ -43,6 +47,7 @@ h2{
    max-width:300px;
    justify-content: center;
    font-size: 1.8em;
+   text-align: center;
    color:white;
    margin:0;
    margin:2rem 0 1.4rem 0;
@@ -82,7 +87,6 @@ button:hover{
 main{
   display: flex;
   justify-content: center;
-  z-index: 5;
   margin-bottom: 3rem;
 }
 
@@ -134,7 +138,6 @@ ul{
 
    font-size:1.25rem;
    font-weight: 600;
-   background-color: green;
 }
 
 li{
@@ -143,12 +146,11 @@ li{
    justify-content: center;
    box-sizing:border-box;
 
+   opacity: 0;
    width:100%;
    padding:.8rem .8rem .5rem .8rem ;
-   background-color: blueviolet;
 }
 
-.hard{opacity:0}
 /* .hard{
    animation: onLoad 0.1s linear both;
 }
@@ -417,6 +419,7 @@ a:hover .svg.l{
 .col{
    display: flex;
    width:50%;
+   box-sizing: border-box;
    flex-direction: column;
    align-items: center;
 }

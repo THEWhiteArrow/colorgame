@@ -24,7 +24,7 @@
          <%  n=1 %>
          <% for(let score of sortedScores) { %>
          <% if(score.mode==="easy") {%>
-         <li>
+         <li class="easy">
             <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
             <div class="data"> <%=score.user  %> - <%= score.score %></div>
          </li>
@@ -44,24 +44,41 @@
 </div>
 
 <script>
-   const tl = anime.timeline({});
+   const t1 = anime.timeline({})
+   const t2 = anime.timeline({})
 
-tl.add({
-   targets: '.hard',
-   translateX: -400,
-   translateY: -200,
-   opacity:0,
-   duration:0.1,
-   easing: 'easeInOutQuad'
-})
-tl.add({
-   targets: '.hard',
-   opacity:1,
-   translateX: 0,
-   translateY: 0,
-   delay:anime.stagger(200),
-   duration:5000,
-   easing: 'easeInOutQuad'
-})
+   t1.add({
+      targets: '.hard',
+      translateX: -500,
+      translateY: -50,
+      duration: 0,
+   })
+   t2.add({
+      targets: '.easy',
+      translateX: 500,
+      translateY: -50,
+      duration: 0,
+   })
+
+
+   t1.add({
+      targets: '.hard',
+      delay: anime.stagger(150),
+      opacity: 1,
+      translateX: 0,
+      translateY: 0,
+      duration: 1000,
+      easing: 'easeOutExpo'
+   })
+   t2.add({
+      targets: '.easy',
+      delay: anime.stagger(150),
+      opacity: 1,
+      translateX: 0,
+      translateY: 0,
+      duration: 1000,
+      easing: 'easeOutExpo'
+   })
+
 
 </script>
