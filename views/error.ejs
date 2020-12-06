@@ -1,9 +1,11 @@
 <% layout('layouts/boilerplate') %>
-<h1>Error</h1>
-<div class="absolute">
-   <div class="link">
-      <a href="/">Go Back To The Game</a>
+
+<body>
+   <h1>Error</h1>
+   <div class="absolute">
+      <div class="link">
+         <a href="/">Go Back To The Game</a>
+      </div>
    </div>
-</div>
-<h2><%= err.message %> </h2>
-<p style="word-wrap:break-word;padding:1rem"><%= err.stack %> </p>
+   <h2><%= err.message %> </h2>
+   <p style="word-wrap:break-word;padding:1rem"><%= err.stack %> </p>
