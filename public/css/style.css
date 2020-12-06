@@ -4,24 +4,28 @@
 }
 
 html{
-    height:100%;
-    width:100%;
+    min-height:100%;
     margin:0;
     padding:0;
+    border:0;
+    position: relative;
    } 
    
    body{ 
-   position: relative;
-   min-height: 100vh;
+      overflow-x:hidden;
+      height: 100%;
    display: flex;
    flex-direction: column;
-   overflow-x:hidden;
    margin: 0;
+   padding:0;
+   border:0;
    background-image: url('../assets/bg.svg');
    background-size: cover;
    font-family: 'JetBrains Mono', monospace;  
 }
-
+.sprinkle{
+   background-image: url('../assets/sprinkle.svg');
+}
 
 h1{
     color:  white;
@@ -47,7 +51,6 @@ h2{
    color:white;
    margin:0;
    margin:2rem 0 1.4rem 0;
-   padding:0 .8rem;
    box-sizing:border-box;
    border-bottom: 1px solid white;
 }
@@ -280,7 +283,7 @@ input::placeholder{
    color:white;
 }
 
-.score{
+.results{
    display: flex;
    flex-direction: column;
    margin-top:3rem;
@@ -481,7 +484,26 @@ a:hover .svg.l{
    max-width: 1000px;
 }
 /* ######################### MEDIA QUARIES ####################### */
-
+@media(max-width:850px){
+   .pr,.pl{
+      padding:0;
+   }
+   li{
+      flex-direction: column;
+      text-align: center;
+      padding: 1rem;
+      width:max-content;
+      }
+      .dwukropek{
+         display:none;
+      }
+      .data{
+         margin:.5rem 0;
+      }
+      .place{
+         border-bottom: 1px solid white;
+      }
+}
 @media (max-width:765px) {
   #colorDisplay{
     font-size: 1.7em;
@@ -494,30 +516,40 @@ a:hover .svg.l{
     padding-bottom: 45%;
     margin-bottom:calc(10%/3);
   }
-  li{
-  flex-direction: column;
-  text-align: center;
-  padding: 1rem;
-  width:max-content;
-  }
-  .dwukropek{
-     display:none;
-  }
-  .data{
-     margin:.5rem 0;
-  }
-  .place{
-     border-bottom: 1px solid white;
-  }
+
 }
 @media (max-width:556px) {
    #colorDisplay{
       font-size: 1.5em;
    }
+   data{
+      display: flex;
+      flex-direction: column;
+   }
+   h2{
+      
+    font-size: 1.4em;
+   }
+   li{
+      font-size:.8em;
+   }
 }
 @media (max-width:457px) {
   header{
     font-size: 0.8rem;
+  }
+  .data{
+     display:flex;
+     flex-direction: column;
+  }
+  .user{
+     order:1;
+  }
+  .score{
+     order:2;
+  }
+  .dash{
+     display: none;
   }
 }
 @media (max-width:350px) {

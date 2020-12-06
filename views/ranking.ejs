@@ -1,84 +1,88 @@
 <% layout('layouts/boilerplate') %>
-<script src="/js/anime.min.js" type="text/javascript"></script>
-<h1>Global Ranking</h1>
-<div class="container lg">
-   <div class="col pl">
-      <h2>Hard Mode</h2>
-      <ul id="ranking">
-         <% let n=1 %>
-         <% for(let score of sortedScores) { %>
-         <% if(score.mode==="hard") {%>
-         <li class="hard">
-            <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
-            <div class="data"> <%=score.user  %> - <%= score.score %></div>
-         </li>
-         <% n+=1 %>
-         <% } %>
-         <% } %>
-      </ul>
+
+<body class="sprinkle">
+   <script src="/js/anime.min.js" type="text/javascript"></script>
+   <h1>Global Ranking</h1>
+   <div class="container lg">
+      <div class="col pl">
+         <h2>Hard Mode</h2>
+         <ul id="ranking">
+            <% let n=1 %>
+            <% for(let score of sortedScores) { %>
+            <% if(score.mode==="hard") {%>
+            <li class="hard">
+               <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
+               <div class="data"> <span class="user"> <%=score.user  %></span><span class="dash"> - </span><span
+                     class="score"><%= score.score %></span></div>
+            </li>
+            <% n+=1 %>
+            <% } %>
+            <% } %>
+         </ul>
+      </div>
+
+      <div class="col pr">
+         <h2>Easy Mode</h2>
+         <ul id="ranking">
+            <%  n=1 %>
+            <% for(let score of sortedScores) { %>
+            <% if(score.mode==="easy") {%>
+            <li class="easy">
+               <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
+               <div class="data"> <span class="user"> <%=score.user  %></span><span class="dash"> - </span><span
+                     class="score"><%= score.score %></span></div>
+            </li>
+            <% n+=1 %>
+            <% } %>
+            <% } %>
+         </ul>
+      </div>
+
+   </div>
+   <div class="absolute left">
+      <div class="link">
+         <a href="/"><span class="msg">Play</span>
+            <span class="svg l"></span>
+         </a>
+      </div>
    </div>
 
-   <div class="col pr">
-      <h2>Easy Mode</h2>
-      <ul id="ranking">
-         <%  n=1 %>
-         <% for(let score of sortedScores) { %>
-         <% if(score.mode==="easy") {%>
-         <li class="easy">
-            <div class="place">Place <span class="number"><%= n %></span> <span class="dwukropek">:</span></div>
-            <div class="data"> <%=score.user  %> - <%= score.score %></div>
-         </li>
-         <% n+=1 %>
-         <% } %>
-         <% } %>
-      </ul>
-   </div>
+   <script>
+      const t1 = anime.timeline({})
+      const t2 = anime.timeline({})
 
-</div>
-<div class="absolute left">
-   <div class="link">
-      <a href="/"><span class="msg">Play</span>
-         <span class="svg l"></span>
-      </a>
-   </div>
-</div>
-
-<script>
-   const t1 = anime.timeline({})
-   const t2 = anime.timeline({})
-
-   t1.add({
-      targets: '.hard',
-      translateX: -500,
-      translateY: -50,
-      duration: 0,
-   })
-   t2.add({
-      targets: '.easy',
-      translateX: 500,
-      translateY: -50,
-      duration: 0,
-   })
+      t1.add({
+         targets: '.hard',
+         translateX: -500,
+         translateY: -50,
+         duration: 0,
+      })
+      t2.add({
+         targets: '.easy',
+         translateX: 500,
+         translateY: -50,
+         duration: 0,
+      })
 
 
-   t1.add({
-      targets: '.hard',
-      delay: anime.stagger(150),
-      opacity: 1,
-      translateX: 0,
-      translateY: 0,
-      duration: 1000,
-      easing: 'easeOutExpo'
-   })
-   t2.add({
-      targets: '.easy',
-      delay: anime.stagger(150),
-      opacity: 1,
-      translateX: 0,
-      translateY: 0,
-      duration: 1000,
-      easing: 'easeOutExpo'
-   })
+      t1.add({
+         targets: '.hard',
+         delay: anime.stagger(150),
+         opacity: 1,
+         translateX: 0,
+         translateY: 0,
+         duration: 1000,
+         easing: 'easeOutExpo'
+      })
+      t2.add({
+         targets: '.easy',
+         delay: anime.stagger(150),
+         opacity: 1,
+         translateX: 0,
+         translateY: 0,
+         duration: 1000,
+         easing: 'easeOutExpo'
+      })
 
 
-</script>
+   </script>

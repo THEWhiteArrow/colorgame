@@ -1,44 +1,46 @@
 <% layout('layouts/boilerplate') %>
-<header class="content">
-   <h1>THE GREAT
-      <br>
-      <span id="colorDisplay">RGB(152 , 135, 218)</span>
-      <br>
-      COLOR GAME</h1>
-</header>
-<nav class="content">
-   <div id="stripe">
-      <button id="reset">NEW COLORS</button>
-      <span id="message">0</span>
-      <span>
-         <button class="mode">Easy</button>
-         <button class="mode selected">Hard</button>
-      </span>
-   </div>
-</nav>
-<main class="content">
-   <div class="container">
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-   </div>
 
-</main>
-<div class="absolute content left">
-   <div class="link">
-      <a href="/ranking"><span class="msg">Ranking</span>
-         <span class="svg r"></span>
-      </a>
+<body>
+   <header class="content">
+      <h1>THE GREAT
+         <br>
+         <span id="colorDisplay">RGB(152 , 135, 218)</span>
+         <br>
+         COLOR GAME</h1>
+   </header>
+   <nav class="content">
+      <div id="stripe">
+         <button id="reset">NEW COLORS</button>
+         <span id="message">0</span>
+         <span>
+            <button class="mode">Easy</button>
+            <button class="mode selected">Hard</button>
+         </span>
+      </div>
+   </nav>
+   <main class="content">
+      <div class="container">
+         <div class="square"></div>
+         <div class="square"></div>
+         <div class="square"></div>
+         <div class="square"></div>
+         <div class="square"></div>
+         <div class="square"></div>
+      </div>
+
+   </main>
+   <div class="absolute content left">
+      <div class="link">
+         <a href="/ranking"><span class="msg">Ranking</span>
+            <span class="svg r"></span>
+         </a>
+      </div>
+      <div class="results">
+         <span id="recordUser"><%= record.user %></span>
+         <span id="recordScore"><%= record.score %></span>
+      </div>
    </div>
-   <div class="score">
-      <span id="recordUser"><%= record.user %></span>
-      <span id="recordScore"><%= record.score %></span>
+   <div class="absolute content right">
+      <a class="save">Save Score</a>
    </div>
-</div>
-<div class="absolute content right">
-   <a class="save">Save Score</a>
-</div>
-<script src="/js/script.js" type="text/javascript"></script>
+   <script src="/js/script.js" type="text/javascript"></script>
